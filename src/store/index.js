@@ -8,14 +8,13 @@ Vue.use(Vuex)
 
 const state = {
   carts: localStorage.getItem('carts') ? JSON.parse(localStorage.getItem('carts')) : [],
-  orderList: [],
-  addressList: []
+  addresses: localStorage.getItem('addresses') ? JSON.parse(localStorage.getItem('addresses')) : []
 }
 
 const store = new Vuex.Store({
   state,
   mutations,
   getters
-})
+});
 
 export default store

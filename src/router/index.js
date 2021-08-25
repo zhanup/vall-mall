@@ -6,13 +6,8 @@ Vue.use(VueRouter)
 const routes = [
   {
     path: '/',
-    component: Home,
-    redirect: "/home"
-  },
-  {
-    path: '/home',
     name: 'Home',
-    component: Home
+    component: Home,
   },
   {
     path: '/phone',
@@ -80,6 +75,14 @@ const routes = [
     }
   },
   {
+    path: '/edit_address',
+    name: 'EditAddress',
+    component: () => import('@/views/EditAddress'),
+    meta: {
+      requireAuth: true
+    }
+  },
+  {
     path: '/cart',
     name: 'Cart',
     component: () => import('@/views/Cart'),
@@ -101,7 +104,7 @@ const routes = [
 
 const router = new VueRouter({
   routes,
-  mode: 'history'
+  // mode: 'history'
 })
 
 // 全局前置守卫

@@ -3,8 +3,11 @@
     <Header title="收货地址" :headerLeftStatus="true" />
     <div class="address-box">
       <van-address-list
-      :list="list"
+      v-model="chosenAddressId"
+      :list="addressList"
+      default-tag-text="默认"
       @add="onAdd"
+      @edit="onEdit"
       />
     </div>
     
@@ -12,7 +15,8 @@
 </template>
 
 <script>
-import Header from '@/components/Header.vue'
+import Header from '@/components/Header.vue';
+import { mapGetters } from 'vuex';
 
 export default {
   name: 'Address',
@@ -21,22 +25,30 @@ export default {
   },
   data() {
     return {
-      list: [
-        {
-          id: '1',
-          name: '张三',
-          tel: '13000000000',
-          address: '浙江省杭州市西湖区文三路 138 号东方通信大厦 7 楼 501 室',
-          isDefault: true,
-        }
-      ]
+      chosenAddressId: 0
     }
+  },
+  computed: {
+    ...mapGetters({
+      addressList: 'addressList'
+    })
   },
   methods: {
     onAdd() {
-      this.$router.push('/new_address')
+      this.$router.push('/new_address');
+    },
+    onEdit(item) {
+      this.$router.push({
+        path: '/edit_address',
+        query: {
+          id: item.id
+        }
+      });
     }
-  }
+  },
+  created() {
+    this.chosenAddressId = this.addressList[0].id
+  },
 }
 </script>
 
@@ -45,6 +57,13 @@ export default {
   margin-top: 1.45rem;
 }
 .address-box .van-button--danger {
+  background-color: #00acff;
+  border-color: #00acff;
+}
+.address-box .van-tag--danger {
+    background-color: #00acff;
+}
+::v-deep .address-box .van-address-item .van-radio__icon--checked .van-icon-success {
   background-color: #00acff;
   border-color: #00acff;
 }

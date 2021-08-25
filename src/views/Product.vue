@@ -80,7 +80,7 @@
 
       <van-goods-action>
         <van-goods-action-icon icon="chat-o" text="客服" />
-        <van-goods-action-icon icon="cart-o" text="购物车" :badge="length" />
+        <van-goods-action-icon icon="cart-o" text="购物车" :badge="length === 0 ? '' : length" />
         <van-goods-action-icon icon="star-o" text="收藏" />
         <van-goods-action-button type="warning" text="加入购物车" @click="addToCatr" />
         <van-goods-action-button type="danger" text="立即购买" />

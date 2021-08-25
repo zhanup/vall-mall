@@ -53,8 +53,8 @@
 </template>
 
 <script>
-import Header from '@/components/Header.vue'
-import { mapState, mapMutations } from 'vuex'
+import Header from '@/components/Header.vue';
+import { mapState, mapMutations } from 'vuex';
 
 export default {
   name: 'Cart',
@@ -172,9 +172,13 @@ export default {
   align-items: center;
   line-height: 1.18rem;
 }
+
+.check-content .icon-xuanzekuangxuanzhong:before {
+  vertical-align: 4px;
+  padding-right: 5px;
+}
 .check-content span {
   font-size: .38rem;
-  vertical-align: auto;
   line-height: 1.18rem;
 }
 .price {
@@ -192,10 +196,10 @@ export default {
   margin-right: .3rem;
 }
 .calculate span {
-  width: 100;
+  width: 100px;
   height: 100%;
   display: block;
-  background: #f81200;
+  background: #00acff;
   border-radius: 20px;
   color: #fff;
   text-align: center;
