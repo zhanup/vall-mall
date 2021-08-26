@@ -10,29 +10,29 @@ import {
   ADD_ADDRESS,
   DELETE_ADDRESS,
   UPDATE_ADDRESS
-} from './mutations-type'
+} from './mutations-type';
 
 const mutations = {
   // 加入购物车
   [ADD_TO_CART](state, payload) {
     if (state.carts.filter(item => item.title === payload.title).length) {
-      Toast('商品已存在！')
-      return false
+      Toast('商品已存在！');
+      return false;
     }
-    payload.count = 1
-    payload.checked = true
-    state.carts.push(payload)
-    Toast('添加商品成功！')
-    localStorage.setItem('carts', JSON.stringify(state.carts))
+    payload.count = 1;
+    payload.checked = true;
+    state.carts.push(payload);
+    Toast('添加商品成功！');
+    localStorage.setItem('carts', JSON.stringify(state.carts));
   },
   // 购物车 商品数量加一
   [ADD_COUNT](state, payload) {
     state.carts.forEach(item => {
       if (item.title === payload) {
-        item.count >= 99 ? Toast('商品数量不可超过100！') : item.count++
+        item.count >= 99 ? Toast('商品数量不可超过100！') : item.count++;
       }
     })
-    localStorage.setItem('carts', JSON.stringify(state.carts))
+    localStorage.setItem('carts', JSON.stringify(state.carts));
   },
   // 购物车 商品数量减一
   [DEDUCT_COUNT](state, payload) {
@@ -41,25 +41,25 @@ const mutations = {
         if (item.count === 1) {
           Dialog.confirm({ title: '提示', message: `是否删除${payload}?`,})
             .then(() => {
-              state.carts = state.carts.filter(item => item.title !== payload)
-              localStorage.setItem('carts', JSON.stringify(state.carts))
+              state.carts = state.carts.filter(item => item.title !== payload);
+              localStorage.setItem('carts', JSON.stringify(state.carts));
             })
-            .catch(() => {})
-            return false
+            .catch(() => {});
+            return false;
         } 
-        item.count--
-        localStorage.setItem('carts', JSON.stringify(state.carts))
+        item.count--;
+        localStorage.setItem('carts', JSON.stringify(state.carts));
       }
-    })
+    });
   },
   // 购物车 商品选择和取消
   [SELECT_GOODS](state, payload) {
     state.carts.forEach(item => {
       if (item.title === payload) {
-        item.checked = !item.checked
-        localStorage.setItem('carts', JSON.stringify(state.carts))
+        item.checked = !item.checked;
+        localStorage.setItem('carts', JSON.stringify(state.carts));
       }
-    })
+    });
   },
   // 购物车 取消选择和选择全部
   [SELECT_ALL_GOODS](state) {
@@ -69,12 +69,12 @@ const mutations = {
     });
 
     if (state.carts.length === len) {
-      state.carts.forEach(item => item.checked = false)
+      state.carts.forEach(item => item.checked = false);
     } else {
-      state.carts.forEach(item => item.checked = true)
+      state.carts.forEach(item => item.checked = true);
     }
 
-    localStorage.setItem('carts', JSON.stringify(state.carts))
+    localStorage.setItem('carts', JSON.stringify(state.carts));
   },
   // 添加地址
   [ADD_ADDRESS](state, payload) {

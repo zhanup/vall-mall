@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Home from '@/views/Home'
+import Home from '@/views/home/Home'
 Vue.use(VueRouter)
 
 const routes = [
@@ -12,32 +12,32 @@ const routes = [
   {
     path: '/phone',
     name: 'Phone',
-    component: () => import('@/views/Phone')
+    component: () => import('@/views/home/Phone')
   },
   {
     path: '/parts',
     name: 'Parts',
-    component: () => import('@/views/Parts')
+    component: () => import('@/views/home/Parts')
   },
   {
     path: '/product',
     name: 'Product',
-    component: () => import('@/views/Product')
+    component: () => import('@/views/home/Product')
   },
   {
     path: '/news',
     name: 'News',
-    component: () => import('@/views/News')
+    component: () => import('@/views/news/News')
   },
   {
     path: '/detail',
     name: 'Detail',
-    component: () => import('@/views/Detail')
+    component: () => import('@/views/news/Detail')
   },
   {
     path: '/profile',
     name: 'Profile',
-    component: () => import('@/views/Profile'),
+    component: () => import('@/views/profile/Profile'),
     meta: {
       requireAuth: true
     }
@@ -45,7 +45,7 @@ const routes = [
   {
     path: '/order',
     name: 'Order',
-    component: () => import('@/views/Order'),
+    component: () => import('@/views/profile/Order'),
     meta: {
       requireAuth: true
     }
@@ -53,7 +53,7 @@ const routes = [
   {
     path: '/collection',
     name: 'Collection',
-    component: () => import('@/views/Collection'),
+    component: () => import('@/views/profile/Collection'),
     meta: {
       requireAuth: true
     }
@@ -61,7 +61,7 @@ const routes = [
   {
     path: '/address',
     name: 'Address',
-    component: () => import('@/views/Address'),
+    component: () => import('@/views/profile/address/Address'),
     meta: {
       requireAuth: true
     }
@@ -69,7 +69,7 @@ const routes = [
   {
     path: '/new_address',
     name: 'NewAddress',
-    component: () => import('@/views/NewAddress'),
+    component: () => import('@/views/profile/address/NewAddress'),
     meta: {
       requireAuth: true
     }
@@ -77,7 +77,7 @@ const routes = [
   {
     path: '/edit_address',
     name: 'EditAddress',
-    component: () => import('@/views/EditAddress'),
+    component: () => import('@/views/profile/address/EditAddress'),
     meta: {
       requireAuth: true
     }
@@ -85,7 +85,7 @@ const routes = [
   {
     path: '/cart',
     name: 'Cart',
-    component: () => import('@/views/Cart'),
+    component: () => import('@/views/profile/Cart'),
     meta: {
       requireAuth: true
     }
@@ -93,12 +93,12 @@ const routes = [
   {
     path: '/login',
     name: 'Login',
-    component: () => import('@/views/Login')
+    component: () => import('@/views/login/Login')
   },
   {
     path: '/register',
     name: 'Register',
-    component: () => import('@/views/Register')
+    component: () => import('@/views/login/Register')
   }
 ]
 
@@ -111,10 +111,10 @@ const router = new VueRouter({
 router.beforeEach((to, from, next) => { 
   if(to.meta.requireAuth) {
     if(!localStorage.getItem('user')) {
-      next({ name:'Login' })
+      next({ name:'Login' });
     }
   }
-  next()
+  next();
 })
 
 export default router
