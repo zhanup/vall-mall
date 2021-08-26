@@ -9,7 +9,9 @@ import {
   SELECT_ALL_GOODS,
   ADD_ADDRESS,
   DELETE_ADDRESS,
-  UPDATE_ADDRESS
+  UPDATE_ADDRESS,
+  ADD_COLLECTON,
+  DELETE_COLLECTON
 } from './mutations-type';
 
 const mutations = {
@@ -25,6 +27,7 @@ const mutations = {
     Toast('添加商品成功！');
     localStorage.setItem('carts', JSON.stringify(state.carts));
   },
+
   // 购物车 商品数量加一
   [ADD_COUNT](state, payload) {
     state.carts.forEach(item => {
@@ -34,6 +37,7 @@ const mutations = {
     })
     localStorage.setItem('carts', JSON.stringify(state.carts));
   },
+
   // 购物车 商品数量减一
   [DEDUCT_COUNT](state, payload) {
     state.carts.forEach(item => {
@@ -52,6 +56,7 @@ const mutations = {
       }
     });
   },
+
   // 购物车 商品选择和取消
   [SELECT_GOODS](state, payload) {
     state.carts.forEach(item => {
@@ -61,6 +66,7 @@ const mutations = {
       }
     });
   },
+
   // 购物车 取消选择和选择全部
   [SELECT_ALL_GOODS](state) {
     let len = 0;
@@ -76,17 +82,20 @@ const mutations = {
 
     localStorage.setItem('carts', JSON.stringify(state.carts));
   },
+
   // 添加地址
   [ADD_ADDRESS](state, payload) {
     payload.id = uuidv4();
     state.addresses.push(payload);
     localStorage.setItem('addresses', JSON.stringify(state.addresses));
   },
+
   // 删除地址
   [DELETE_ADDRESS](state, id) {
     state.addresses = state.addresses.filter(item => item.id !== id);
     localStorage.setItem('addresses', JSON.stringify(state.addresses));
   },
+
   // 更新地址
   [UPDATE_ADDRESS](state, payload) {
     state.addresses = state.addresses.map(item => {
@@ -97,6 +106,24 @@ const mutations = {
       }
     });
     localStorage.setItem('addresses', JSON.stringify(state.addresses));
+  },
+
+  // 添加收藏
+  [ADD_COLLECTON](state, payload) {
+    if (state.collections.find(item => item.title === payload.title)) {
+      Toast('商品已收藏！');
+      return false;
+    }
+    state.collections.push(payload);
+    Toast('收藏成功！');
+    localStorage.setItem('collections', JSON.stringify(state.collections));
+  },
+
+  // 删除收藏
+  [DELETE_COLLECTON](state, title) {
+    state.collections = state.collections.filter(item => item.title !== title);
+    Toast('取消成功！');
+    localStorage.setItem('collections', JSON.stringify(state.collections));
   }
 }
 

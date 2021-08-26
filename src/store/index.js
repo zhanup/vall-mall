@@ -8,7 +8,8 @@ Vue.use(Vuex)
 
 const state = {
   carts: localStorage.getItem('carts') ? JSON.parse(localStorage.getItem('carts')) : [],
-  addresses: localStorage.getItem('addresses') ? JSON.parse(localStorage.getItem('addresses')) : []
+  addresses: localStorage.getItem('addresses') ? JSON.parse(localStorage.getItem('addresses')) : [],
+  collections: localStorage.getItem('collections') ? JSON.parse(localStorage.getItem('collections')) : [],
 }
 
 const store = new Vuex.Store({

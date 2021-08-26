@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Home from '@/views/home/Home'
+import Home from '@/views/home'
 Vue.use(VueRouter)
 
 const routes = [
@@ -12,22 +12,22 @@ const routes = [
   {
     path: '/phone',
     name: 'Phone',
-    component: () => import('@/views/home/Phone')
+    component: () => import('@/views/goods/Phone')
   },
   {
     path: '/parts',
     name: 'Parts',
-    component: () => import('@/views/home/Parts')
+    component: () => import('@/views/goods/Parts')
   },
   {
     path: '/product',
     name: 'Product',
-    component: () => import('@/views/home/Product')
+    component: () => import('@/views/goods/Product')
   },
   {
     path: '/news',
     name: 'News',
-    component: () => import('@/views/news/News')
+    component: () => import('@/views/news')
   },
   {
     path: '/detail',
@@ -37,7 +37,7 @@ const routes = [
   {
     path: '/profile',
     name: 'Profile',
-    component: () => import('@/views/profile/Profile'),
+    component: () => import('@/views/profile'),
     meta: {
       requireAuth: true
     }
@@ -45,7 +45,7 @@ const routes = [
   {
     path: '/order',
     name: 'Order',
-    component: () => import('@/views/profile/Order'),
+    component: () => import('@/views/profile/order'),
     meta: {
       requireAuth: true
     }
@@ -53,7 +53,7 @@ const routes = [
   {
     path: '/collection',
     name: 'Collection',
-    component: () => import('@/views/profile/Collection'),
+    component: () => import('@/views/profile/collection'),
     meta: {
       requireAuth: true
     }
@@ -61,7 +61,7 @@ const routes = [
   {
     path: '/address',
     name: 'Address',
-    component: () => import('@/views/profile/address/Address'),
+    component: () => import('@/views/profile/address'),
     meta: {
       requireAuth: true
     }
@@ -85,7 +85,7 @@ const routes = [
   {
     path: '/cart',
     name: 'Cart',
-    component: () => import('@/views/profile/Cart'),
+    component: () => import('@/views/profile/cart'),
     meta: {
       requireAuth: true
     }
@@ -93,12 +93,12 @@ const routes = [
   {
     path: '/login',
     name: 'Login',
-    component: () => import('@/views/login/Login')
+    component: () => import('@/views/profile/Login')
   },
   {
     path: '/register',
     name: 'Register',
-    component: () => import('@/views/login/Register')
+    component: () => import('@/views/profile/Register')
   }
 ]
 

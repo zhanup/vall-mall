@@ -6,3 +6,5 @@ export const SELECT_ALL_GOODS = 'SELECT_ALL_GOODS';  // 商品全选
 export const ADD_ADDRESS = 'ADD_ADDRESS';  // 添加地址
 export const DELETE_ADDRESS = 'DELETE_ADDRESS'; // 删除地址
 export const UPDATE_ADDRESS = 'UPDATE_ADDRESS';  // 更新地址
+export const ADD_COLLECTON = 'ADD_COLLECTON';  // 添加收藏
+export const DELETE_COLLECTON = 'DELETE_COLLECTON'; 

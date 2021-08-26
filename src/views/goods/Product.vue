@@ -81,7 +81,12 @@
       <van-goods-action>
         <van-goods-action-icon icon="chat-o" text="客服" />
         <van-goods-action-icon icon="cart-o" text="购物车" :badge="length === 0 ? '' : length" />
-        <van-goods-action-icon icon="star-o" text="收藏" />
+        <van-goods-action-icon 
+          :icon="isCollect ? 'star' : 'star-o'" 
+          :color="isCollect ? '#ff5000' : '#323233'"
+          :text="isCollect ? '已收藏' : '收藏'" 
+          @click="addToCollection"
+        />
         <van-goods-action-button type="warning" text="加入购物车" @click="addToCatr" />
         <van-goods-action-button type="danger" text="立即购买" />
       </van-goods-action>
@@ -90,8 +95,8 @@
 </template>
 
 <script>
-import Header from '@/components/Header.vue'
-import { mapMutations, mapGetters } from 'vuex'
+import Header from '@/components/Header.vue';
+import { mapMutations, mapGetters, mapState } from 'vuex';
 
 export default {
   name: 'Product',
@@ -110,11 +115,18 @@ export default {
   computed:{
     ...mapGetters({
       length: 'cartLength'
-    })
+    }),
+    ...mapState({
+      collections: state => state.collections
+    }),
+    isCollect() {
+      return this.collections.findIndex(item => item.title === this.goods.name) !== -1;
+    }
   },
   methods: {
     ...mapMutations({
-      addCart: 'ADD_TO_CART'
+      addCart: 'ADD_TO_CART',
+      addCollection: 'ADD_COLLECTON'
     }),
     getGoodsDetails() {
       this.$axios('/data.json')
@@ -132,6 +144,14 @@ export default {
       product.desc = this.goods.title
       
       this.addCart(product)
+    },
+    addToCollection() {
+      const product = {}
+      product.image = this.goods.img_url
+      product.title = this.goods.name
+      product.price = this.goods.price
+
+      this.addCollection(product)
     }
   }
 }
