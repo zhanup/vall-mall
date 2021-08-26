@@ -51,7 +51,7 @@
 </template>
 
 <script>
-import Footer from '@/components/Footer'
+import Footer from '@/components/Footer';
 
 export default {
   name: 'Home',
@@ -98,8 +98,7 @@ export default {
           id: item1.id,
           shop_id: item2.id      
         }
-      })
-      // console.log(item)
+      });
     }
   }
 }

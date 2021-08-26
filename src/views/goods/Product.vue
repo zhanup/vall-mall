@@ -9,6 +9,7 @@
         </van-swipe-item>
       </van-swipe>
 
+      <!-- 商品信息 -->
       <div class="product-info">
         <div class="product-name">{{goods.name}}</div>
         <div class="product-describe">
@@ -16,6 +17,12 @@
           {{goods.title}}
         </div>
         <div class="product-price">￥{{goods.price}}</div>
+      </div>
+
+      <!-- 购买数量 -->
+      <div class="product-count">
+        <span>购买数量：</span>
+        <van-stepper v-model="count" min="1" max="99" />
       </div>
 
       <div class="category" @click="show = true">
@@ -64,6 +71,7 @@
         </div>
       </div>
 
+      <!-- 图文详情 -->
       <div class="detail-box">
         <van-tabs line-width="50%" line-height="2px" color="#26a2ff">
           <van-tab title="图文详情">         
@@ -78,6 +86,7 @@
         </van-tabs>
       </div>
 
+      <!--  商品导航 -->
       <van-goods-action>
         <van-goods-action-icon icon="chat-o" text="客服" />
         <van-goods-action-icon icon="cart-o" text="购物车" :badge="length === 0 ? '' : length" />
@@ -88,7 +97,7 @@
           @click="addToCollection"
         />
         <van-goods-action-button type="warning" text="加入购物车" @click="addToCatr" />
-        <van-goods-action-button type="danger" text="立即购买" />
+        <van-goods-action-button type="danger" text="立即购买" @click="jumpPay" />
       </van-goods-action>
     </div>
   </div>
@@ -105,8 +114,9 @@ export default {
   },
   data() {
     return {
-      show: false,
-      goods: {}
+      show: false,  // 是否显示遮罩层
+      goods: {},  // 商品详细数据
+      count: 1,  // 购买数量
     }
   },
   created() {
@@ -114,11 +124,14 @@ export default {
   },
   computed:{
     ...mapGetters({
+      // 购物车商品数量
       length: 'cartLength'
     }),
     ...mapState({
+      // vuex里的收藏
       collections: state => state.collections
     }),
+    // 是否已收藏
     isCollect() {
       return this.collections.findIndex(item => item.title === this.goods.name) !== -1;
     }
@@ -128,30 +141,46 @@ export default {
       addCart: 'ADD_TO_CART',
       addCollection: 'ADD_COLLECTON'
     }),
+    // 获取商品详情信息
     getGoodsDetails() {
       this.$axios('/data.json')
       .then(res => {
-        const { shop_id, id } = this.$route.query
-        const goods = res.data.homeData[id-1].data.filter(item => item.id == shop_id)[0]
-        this.goods = goods
+        const { shop_id, id } = this.$route.query;
+        const goods = res.data.homeData[id-1].data.filter(item => item.id == shop_id)[0];
+        this.goods = goods;
       })
     },
+    // 加入购物车
     addToCatr() {
-      const product = {}
-      product.image = this.goods.img_url
-      product.title = this.goods.name
-      product.price = this.goods.price
-      product.desc = this.goods.title
+      const product = {};
+      product.image = this.goods.img_url;
+      product.title = this.goods.name;
+      product.price = this.goods.price;
+      product.desc = this.goods.title;
       
-      this.addCart(product)
+      this.addCart(product);
     },
+    // 添加收藏
     addToCollection() {
-      const product = {}
-      product.image = this.goods.img_url
-      product.title = this.goods.name
-      product.price = this.goods.price
+      const product = {};
+      product.image = this.goods.img_url;
+      product.title = this.goods.name;
+      product.price = this.goods.price;
 
-      this.addCollection(product)
+      this.addCollection(product);
+    },
+    // 跳转到支付页面
+    jumpPay() {
+      const { shop_id, id } = this.$route.query;
+
+      this.$router.push({
+        path: '/pay',
+        query: {
+          id,
+          shop_id,
+          count: this.count
+        }
+      });
     }
   }
 }
@@ -175,6 +204,15 @@ export default {
   border-bottom: 1px solid #cecece;
   padding: 0.4rem;
   margin-top: -15px;
+}
+.product-count {
+  height: 1.6rem;
+  padding-left: .4rem;
+  background-color: #fff;
+  font-size: .35rem;
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid #cecece;
 }
 .product-name {
   color: black;
@@ -325,5 +363,8 @@ export default {
 }
 .detail-box {
   padding-bottom: 50px;
+}
+.product .van-goods-action {
+  z-index: 99;
 }
 </style>

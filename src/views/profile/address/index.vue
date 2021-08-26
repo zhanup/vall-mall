@@ -47,7 +47,7 @@ export default {
     }
   },
   created() {
-    this.chosenAddressId = this.addressList[0].id
+    this.chosenAddressId = this.addressList[0] ? this.addressList[0].id : ''
   },
 }
 </script>

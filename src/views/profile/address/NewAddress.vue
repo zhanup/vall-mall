@@ -4,6 +4,7 @@
     <div class="new-address-box">
       <van-address-edit
         show-search-result
+        show-set-default
         :area-list="areaList"
         :area-columns-placeholder="['请选择', '请选择', '请选择']"
         @save="onSave"
